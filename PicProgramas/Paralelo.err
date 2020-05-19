@@ -1,0 +1,33 @@
+Warning[205] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 2 : Found directive in column 1. (LIST)
+Warning[215] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 2 : Processor superseded by command line.  Verify processor symbol.
+Warning[205] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 3 : Found directive in column 1. (Include)
+Warning[205] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 5 : Found directive in column 1. (org)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 6 : Found opcode in column 1. (BSF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 7 : Found opcode in column 1. (CLRF)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 7 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 8 : Found opcode in column 1. (BSF)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 8 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 9 : Found opcode in column 1. (BSF)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 9 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 10 : Found opcode in column 1. (CLRF)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 10 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 11 : Found opcode in column 1. (CLRF)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 11 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 12 : Found opcode in column 1. (BCF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 13 : Found opcode in column 1. (CLRF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 14 : Found opcode in column 1. (CLRF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 15 : Found opcode in column 1. (MOVLW)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 16 : Found opcode in column 1. (MOVWF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 18 : Found opcode in column 1. (BSF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 20 : Found opcode in column 1. (GOTO)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 21 : Found opcode in column 1. (MOVF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 22 : Found opcode in column 1. (MOVWF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 23 : Found opcode in column 1. (BSF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 24 : Found opcode in column 1. (MOVF)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 24 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 25 : Found opcode in column 1. (BCF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 26 : Found opcode in column 1. (MOVWF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 27 : Found opcode in column 1. (GOTO)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 30 : Found opcode in column 1. (MOVWF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 32 : Found opcode in column 1. (GOTO)
+Warning[205] C:\MIS DOCUMENTOS\PICPROGRAMAS\PARALELO.ASM 35 : Found directive in column 1. (end)

@@ -1,0 +1,142 @@
+MPASM 03.90 Released                                RETLW.ASM   2-28-2002  17:29:51         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;* Este programa envía repetidamente una cadena de caracteres a través
+                      00002 ;* del puerto serie asíncrono USART, La cadena utiliza como terminador
+                      00003 ;* un carácter "$". Se supone un oscilador a cristal Fosc=14.7456 Mhz
+                      00004 ;************************************************************************
+Warning[205]: Found directive in column 1. (list)
+                      00005 list p=16f877
+Warning[205]: Found directive in column 1. (Include)
+Error[105]  : Cannot open file (Include File "p16f877.in" not found)
+                      00006 Include <p16f877.in>
+  00000020            00007 apun EQU 0x20
+  00000021            00008 dato EQU 0x21
+Warning[205]: Found directive in column 1. (org)
+0000                  00009 org 0x0000
+Error[113]  : Symbol not previously defined (STATUS)
+Error[113]  : Symbol not previously defined (RP0)
+0000   1400           00010 trans BSF STATUS,RP0 ;banco 1
+Warning[203]: Found opcode in column 1. (BCF)
+Error[113]  : Symbol not previously defined (TXSTA)
+Error[113]  : Symbol not previously defined (BRGH)
+0001   1000           00011 BCF TXSTA,BRGH ;pone bit BRGH=0 (velocidad baja)
+Warning[203]: Found opcode in column 1. (MOVLW)
+0002   3017           00012 MOVLW 0x17 ;valor para 9600 Bauds (Fosc=14.7456 Mhz)
+Warning[203]: Found opcode in column 1. (MOVWF)
+Error[113]  : Symbol not previously defined (SPBRG)
+0003   0080           00013 MOVWF SPBRG ;configura 9600 Bauds
+Warning[203]: Found opcode in column 1. (BCF)
+Error[113]  : Symbol not previously defined (TXSTA)
+Error[113]  : Symbol not previously defined (SYNC)
+0004   1000           00014 BCF TXSTA,SYNC ;limpia bit SYNC (modo asíncrono)
+Warning[203]: Found opcode in column 1. (BSF)
+Error[113]  : Symbol not previously defined (TXSTA)
+Error[113]  : Symbol not previously defined (TXEN)
+0005   1400           00015 BSF TXSTA,TXEN ;pone bit TXEN=1 (habilita transmisión)
+Warning[203]: Found opcode in column 1. (BCF)
+Error[113]  : Symbol not previously defined (STATUS)
+Error[113]  : Symbol not previously defined (RP0)
+0006   1000           00016 BCF STATUS,RP0 ;regresa al banco 0
+Warning[203]: Found opcode in column 1. (BSF)
+Error[113]  : Symbol not previously defined (RCSTA)
+Error[113]  : Symbol not previously defined (SPEN)
+0007   1400           00017 BSF RCSTA,SPEN ;pone bit SPEN=1 (habilita puerto serie)
+0008   01A0           00018 rep CLRF apun ;inicializa apuntador
+0009   2018           00019 cic2 CALL letrero ;obtiene el siguiente carácter apuntado
+Warning[203]: Found opcode in column 1. (MOVWF)
+000A   00A1           00020 MOVWF dato ;lo guarda en dato
+Warning[203]: Found opcode in column 1. (SUBLW)
+000B   3C24           00021 SUBLW "$" ;Compara con el signo "$"
+Warning[203]: Found opcode in column 1. (BTFSC)
+Error[113]  : Symbol not previously defined (STATUS)
+Error[113]  : Symbol not previously defined (Z)
+000C   1800           00022 BTFSC STATUS,Z ;
+Warning[203]: Found opcode in column 1. (GOTO)
+000D   2808           00023 GOTO rep ;si es, reinicia
+MPASM 03.90 Released                                RETLW.ASM   2-28-2002  17:29:51         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (CALL)
+000E   2011           00024 CALL envia ;si no es "$" envía el dato
+Warning[203]: Found opcode in column 1. (INCF)
+000F   0AA0           00025 INCF apun,1 ;apunta al siguiente carácter
+Warning[203]: Found opcode in column 1. (GOTO)
+0010   2809           00026 GOTO cic2 ;repite
+                      00027 ;*************************************************
+                      00028 ;Subrutina para enviar un dato por el puerto serie
+                      00029 ;*************************************************
+Error[113]  : Symbol not previously defined (STATUS)
+Error[113]  : Symbol not previously defined (RP0)
+0011   1400           00030 envia BSF STATUS,RP0 ;banco 1
+Error[113]  : Symbol not previously defined (TXSTA)
+Error[113]  : Symbol not previously defined (TRMT)
+0012   1C00           00031 esp BTFSS TXSTA,TRMT ;checa si el buffer de transmisión
+Warning[203]: Found opcode in column 1. (GOTO)
+0013   2812           00032 GOTO esp ;si está ocupado espera
+Warning[203]: Found opcode in column 1. (BCF)
+Error[113]  : Symbol not previously defined (STATUS)
+Error[113]  : Symbol not previously defined (RP0)
+0014   1000           00033 BCF STATUS,RP0 ;regresa al banco 0
+Warning[203]: Found opcode in column 1. (MOVF)
+0015   0821           00034 MOVF dato,W ;rescata dato a enviar
+Warning[203]: Found opcode in column 1. (MOVWF)
+Error[113]  : Symbol not previously defined (TXREG)
+0016   0080           00035 MOVWF TXREG ;lo envía
+Warning[203]: Found opcode in column 1. (RETURN)
+0017   0008           00036 RETURN
+0018                  00037 letrero:
+Warning[203]: Found opcode in column 1. (MOVF)
+0018   0820           00038 MOVF apun,W ;carga apuntador en W
+Warning[203]: Found opcode in column 1. (ADDWF)
+Error[113]  : Symbol not previously defined (PCL)
+0019   0780           00039 ADDWF PCL,1 ;Salta W instrucciones adelante
+Warning[205]: Found directive in column 1. (DT)
+001A   3448 344F 344C 00040 DT "HOLA MUNDO 14.756 Mhz",0x0D,0x0A,"$"
+       3441 3420 344D 
+       3455 344E 3444 
+       344F 3420 3431 
+       3434 342E 3437 
+       3435 3436 3420 
+       344D 3468 347A 
+       340D 340A 3424 
+Warning[205]: Found directive in column 1. (end)
+                      00041 end
+MPASM 03.90 Released                                RETLW.ASM   2-28-2002  17:29:51         PAGE  3
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__16F877                          00000001
+apun                              00000020
+cic2                              00000009
+dato                              00000021
+envia                             00000011
+esp                               00000012
+letrero                           00000018
+rep                               00000008
+trans                             00000000
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XX--------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    50
+Program Memory Words Free:  8142
+
+
+Errors   :    24
+Warnings :    26 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

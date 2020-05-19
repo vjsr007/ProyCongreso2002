@@ -1,0 +1,38 @@
+,,,;
+,,,LIST P = P16F877
+,,,Include <p16f877.inc>
+,,,        LIST
+,,,; P16F877.INC  Standard Header File, Version 1.00    Microchip Technology, Inc.
+,,,        LIST
+,,,cont EQU 0x20
+0000,,org,org 0x0000
+0000,1683,BSF,BSF STATUS,RP0 ;Banco 1
+0001,019F,CLRF,CLRF ADCON1 ;configura 8 canales analógicos, VREF+=VDD y VREF-=VSS
+0002,179F,BSF,BSF ADCON1,ADFM ;Elije resultado con justificación a la derecha
+0003,1685,BSF,BSF TRISA,5 ;configura como entrada el canal digital RA0
+0004,0186,CLRF,CLRF TRISB
+0005,0187,CLRF,CLRF TRISC
+0006,1283,BCF,BCF STATUS,RP0 ;Banco 0
+0007,0186,CLRF,CLRF PORTB
+0008,0187,CLRF,CLRF PORTC
+0009,3021,MOVLW,MOVLW 0x21 ;Selecciona el canal AN4, reloj de conversión Fosc/2
+000A,009F,MOVWF,MOVWF ADCON0 ;y enciende el convertidor
+000B,2016,ciclo,ciclo CALL pausa ;espera 30 µseg a que pase el tiempo de adquisición
+000C,151F,BSF,BSF ADCON0,2 ;inicia conversión
+000D,191F,espera,espera BTFSC ADCON0,2
+000E,280D,GOTO,GOTO espera ;Espera a que termine la conversión
+000F,081E,MOVF,MOVF ADRESH,W ;Carga en W el Byte alto del resultado
+0010,0086,MOVWF,MOVWF PORTB
+0011,1683,BSF,BSF STATUS,RP0 ;banco 1
+0012,081E,MOVF,MOVF ADRESL,W ;Carga en W el Byte bajo del resultado
+0013,1283,BCF,BCF STATUS,RP0 ;banco 0
+0014,0087,MOVWF,MOVWF PORTC
+0015,280B,GOTO,GOTO ciclo ;repite
+,,,;************************************************************
+0016,3023,pausa,pausa MOVLW 0x23 ;Carga dato para 30 µseg.
+0017,00A0,MOVWF,MOVWF cont ;inicializa contador con el dato
+0018,0BA0,rep,rep DECFSZ cont,1 ;Decrementa contador y escapa si cero
+0019,2818,GOTO,GOTO rep ;si no es cero, repite
+001A,0008,esc,esc RETURN ;regresa de esta subrutina
+,,,;
+,,,end

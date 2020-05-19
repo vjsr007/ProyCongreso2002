@@ -1,0 +1,241 @@
+MPASM 03.90 Released                                SERIE.ASM   3-3-2002  11:14:56         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;************************************************************************
+                      00002 ;* Este programa realiza la conversión de una señal analógica conectada *
+                      00003 ;* al canal AN0 y envía a través del puerto serie el resultado de la *
+                      00004 ;* conversión en forma de 4 dígitos hexadecimales. *
+                      00005 ;************************************************************************
+                      00006 ;
+                      00007 ;
+  0016F877            00008 p=16f877
+  00000020            00009 cont EQU 0x20
+  00000022            00010 msnib EQU 0x22
+  00000023            00011 lsnib EQU 0x23
+  00000003            00012 STATUS EQU 0x03
+  0000009F            00013 ADCON1 EQU 0x9f
+  0000001F            00014 ADCON0 EQU 0x1f
+  00000005            00015 PORTA EQU 0x05
+  00000085            00016 TRISA EQU 0X85
+  0000001E            00017 ADRESH EQU 0x1e
+  0000009E            00018 ADRESL EQU 0x9e
+  00000098            00019 TXSTA EQU 0x98
+  00000018            00020 RCSTA EQU 0x18
+  00000002            00021 PCL EQU 0x02
+  00000019            00022 TXREG EQU 0x19
+  00000099            00023 SPBRG EQU 0x99
+Warning[205]: Found directive in column 1. (org)
+0000                  00024 org 0x0000
+0000   2037           00025 inic CALL initrans ;inicializa el puerto serie para transmisión
+Warning[203]: Found opcode in column 1. (BSF)
+0001   1683           00026 BSF STATUS,5 ;Banco 1 RP0
+Warning[203]: Found opcode in column 1. (CLRF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0002   019F           00027 CLRF ADCON1 ;configura 8 canales analógicos, VREF+=VDD y VREF-=VSS
+Warning[203]: Found opcode in column 1. (BSF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0003   179F           00028 BSF ADCON1,7 ;Elije resultado con justificación a la derecha ADFM
+Warning[203]: Found opcode in column 1. (BSF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0004   1405           00029 BSF TRISA,0 ;configura como entrada el canal digital RA0
+Warning[203]: Found opcode in column 1. (BCF)
+0005   1283           00030 BCF STATUS,5 ;Banco 0
+Warning[203]: Found opcode in column 1. (MOVLW)
+0006   3001           00031 MOVLW 0x01 ;Selecciona el canal AN0, reloj de conversión Fosc/2
+Warning[203]: Found opcode in column 1. (MOVWF)
+0007   009F           00032 MOVWF ADCON0 ;y enciende el convertidor
+0008   2032           00033 ciclo CALL pausa ;espera 30 µseg a que pase el tiempo de adquisición
+Warning[203]: Found opcode in column 1. (BSF)
+0009   151F           00034 BSF ADCON0,2 ;inicia conversión GO/DONE
+000A   191F           00035 espera BTFSC ADCON0,2
+Warning[203]: Found opcode in column 1. (GOTO)
+000B   280A           00036 GOTO espera ;Espera a que termine la conversión
+Warning[203]: Found opcode in column 1. (MOVLW)
+000C   3024           00037 MOVLW 0x24 ;carga $
+Warning[203]: Found opcode in column 1. (CALL)
+000D   2041           00038 CALL envia ;lo envía
+MPASM 03.90 Released                                SERIE.ASM   3-3-2002  11:14:56         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (MOVF)
+000E   081E           00039 MOVF ADRESH,W ;Carga en W el Byte alto del resultado
+Warning[203]: Found opcode in column 1. (CALL)
+000F   2014           00040 CALL Envbyte ;envía el byte por el puerto serie
+Warning[203]: Found opcode in column 1. (BSF)
+0010   1683           00041 BSF STATUS,5 ;banco 1
+Warning[203]: Found opcode in column 1. (MOVF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0011   081E           00042 MOVF ADRESL,W ;Carga en W el Byte bajo del resultado
+Warning[203]: Found opcode in column 1. (CALL)
+0012   2014           00043 CALL Envbyte ;envía el byte por el puerto serie
+Warning[203]: Found opcode in column 1. (GOTO)
+0013   2808           00044 GOTO ciclo ;repite
+                      00045 ;***************************************************************
+                      00046 ; Subrutina que envía el byte en W por el puerto serie, separado
+                      00047 ; en los códigos ASCII de sus dos nibbles hexadecimales
+                      00048 ;***************************************************************
+                      00049 ;
+0014                  00050 Envbyte:
+Warning[203]: Found opcode in column 1. (MOVWF)
+0014   00A2           00051 MOVWF msnib ;pone byte en msnib
+Warning[203]: Found opcode in column 1. (MOVWF)
+0015   00A3           00052 MOVWF lsnib ;y una copia en lsnib
+Warning[203]: Found opcode in column 1. (SWAPF)
+0016   0EA2           00053 SWAPF msnib,1 ;intercambia nibbles en lsnib
+Warning[203]: Found opcode in column 1. (MOVLW)
+0017   300F           00054 MOVLW 0x0F ;máscara para limpiar el nibble alto
+Warning[203]: Found opcode in column 1. (ANDWF)
+0018   05A2           00055 ANDWF msnib,1 ;limpia parte alta de msnib
+Warning[203]: Found opcode in column 1. (ANDWF)
+0019   05A3           00056 ANDWF lsnib,1 ;limpia parte alta de lsnib
+Warning[203]: Found opcode in column 1. (MOVF)
+001A   0822           00057 MOVF msnib,W ;carga msnib en W
+Warning[203]: Found opcode in column 1. (CALL)
+001B   2021           00058 CALL asc ;obtiene código ASCII equivalente
+Warning[203]: Found opcode in column 1. (CALL)
+001C   2041           00059 CALL envia ;lo envía por el puerto serie
+Warning[203]: Found opcode in column 1. (MOVF)
+001D   0823           00060 MOVF lsnib,W ;carga lsnib en W
+Warning[203]: Found opcode in column 1. (CALL)
+001E   2021           00061 CALL asc ;obtiene código ASCII equivalente
+Warning[203]: Found opcode in column 1. (CALL)
+001F   2041           00062 CALL envia ;lo envía por el puerto serie
+Warning[203]: Found opcode in column 1. (RETURN)
+0020   0008           00063 RETURN
+0021   0782           00064 asc ADDWF PCL,1 ;Calcula el código a retornar
+                      00065 ;Saltando W instrucciones adelante
+Warning[205]: Found directive in column 1. (DT)
+0022   3430 3431 3432 00066 DT "0123456789ABCDEF"
+       3433 3434 3435 
+       3436 3437 3438 
+       3439 3441 3442 
+       3443 3444 3445 
+MPASM 03.90 Released                                SERIE.ASM   3-3-2002  11:14:56         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+       3446 
+                      00067 ;
+                      00068 ;************************************************************
+                      00069 ; Subrutina de pausa de aprox. 30 µseg (con Fosc=4 MHZ)
+                      00070 ;************************************************************
+0032   3023           00071 pausa MOVLW 0x23 ;Carga dato para 30 µseg.
+Warning[203]: Found opcode in column 1. (MOVWF)
+0033   00A0           00072 MOVWF cont ;inicializa contador con el dato
+0034   0BA0           00073 rep DECFSZ cont,1 ;Decrementa contador y escapa si cero
+Warning[203]: Found opcode in column 1. (GOTO)
+0035   2834           00074 GOTO rep ;si no es cero, repite
+0036   0008           00075 esc RETURN ;regresa de esta subrutina
+                      00076 ;
+                      00077 ;****************************************************************
+                      00078 ;Subrutina para inicializar el puerto serie USART como transmisor
+                      00079 ;a 9600 Bauds, considerando un cristal de reloj de 14.7456 MHZ
+                      00080 ;****************************************************************
+0037                  00081 initrans:
+Warning[203]: Found opcode in column 1. (BCF)
+0037   1303           00082 BCF STATUS,6 ;RP1=6
+Warning[203]: Found opcode in column 1. (BSF)
+0038   1683           00083 BSF STATUS,5 ;banco 1
+Warning[203]: Found opcode in column 1. (BCF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0039   1118           00084 BCF TXSTA,2 ;pone bit BRGH=0 (velocidad baja)
+Warning[203]: Found opcode in column 1. (MOVLW)
+003A   3019           00085 MOVLW 0x19 ;valor para 9600 Bauds (Fosc=4 Mhz) SPBRG=6.....5.51
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+003B   0099           00086 MOVWF SPBRG ;configura 9600 Bauds
+Warning[203]: Found opcode in column 1. (BCF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+003C   1218           00087 BCF TXSTA,4 ;limpia bit SYNC (modo asíncrono)
+Warning[203]: Found opcode in column 1. (BSF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+003D   1698           00088 BSF TXSTA,5 ;pone bit TXEN=1 (habilita transmisión)
+Warning[203]: Found opcode in column 1. (BCF)
+003E   1283           00089 BCF STATUS,5 ;regresa al banco 0
+Warning[203]: Found opcode in column 1. (BSF)
+003F   1798           00090 BSF RCSTA,7 ;pone bit SPEN=1 (habilita puerto serie)
+Warning[203]: Found opcode in column 1. (RETURN)
+0040   0008           00091 RETURN
+                      00092 ;***************************************************************
+                      00093 ;Subrutina para enviar el byte guardado en W por el puerto serie
+                      00094 ;***************************************************************
+                      00095 ;
+0041   1683           00096 envia BSF STATUS,5 ;banco 1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0042   1C98           00097 esp BTFSS TXSTA,1 ;checa si el buffer de transmisión TRMT
+Warning[203]: Found opcode in column 1. (GOTO)
+0043   2842           00098 GOTO esp ;si está ocupado espera
+Warning[203]: Found opcode in column 1. (BCF)
+0044   1283           00099 BCF STATUS,5 ;regresa al banco 0
+MPASM 03.90 Released                                SERIE.ASM   3-3-2002  11:14:56         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (MOVWF)
+0045   0099           00100 MOVWF TXREG ;envía dato guardado en W
+Warning[203]: Found opcode in column 1. (RETURN)
+0046   0008           00101 RETURN
+Warning[205]: Found directive in column 1. (end)
+                      00102 end
+MPASM 03.90 Released                                SERIE.ASM   3-3-2002  11:14:56         PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADRESH                            0000001E
+ADRESL                            0000009E
+Envbyte                           00000014
+PCL                               00000002
+PORTA                             00000005
+RCSTA                             00000018
+SPBRG                             00000099
+STATUS                            00000003
+TRISA                             00000085
+TXREG                             00000019
+TXSTA                             00000098
+__16F877                          00000001
+asc                               00000021
+ciclo                             00000008
+cont                              00000020
+envia                             00000041
+esc                               00000036
+esp                               00000042
+espera                            0000000A
+inic                              00000000
+initrans                          00000037
+lsnib                             00000023
+msnib                             00000022
+p                                 0016F877
+pausa                             00000032
+rep                               00000034
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXX--------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    71
+Program Memory Words Free:  8121
+
+
+Errors   :     0
+Warnings :    49 reported,     0 suppressed
+Messages :     9 reported,     0 suppressed
+
+

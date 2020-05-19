@@ -1,0 +1,34 @@
+Warning[205] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 5 : Found directive in column 1. (list)
+Warning[205] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 6 : Found directive in column 1. (Include)
+Warning[205] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 9 : Found directive in column 1. (org)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 11 : Found opcode in column 1. (MOVLW)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 12 : Found opcode in column 1. (MOVWF)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 12 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 13 : Found opcode in column 1. (BCF)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 13 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 14 : Found opcode in column 1. (MOVLW)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 15 : Found opcode in column 1. (MOVWF)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 15 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 16 : Found opcode in column 1. (BCF)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 16 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 17 : Found opcode in column 1. (BSF)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 17 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 18 : Found opcode in column 1. (BCF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 19 : Found opcode in column 1. (BSF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 22 : Found opcode in column 1. (MOVWF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 23 : Found opcode in column 1. (SUBLW)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 24 : Found opcode in column 1. (BTFSC)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 25 : Found opcode in column 1. (GOTO)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 26 : Found opcode in column 1. (CALL)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 27 : Found opcode in column 1. (INCF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 28 : Found opcode in column 1. (GOTO)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 33 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 34 : Found opcode in column 1. (GOTO)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 35 : Found opcode in column 1. (BCF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 36 : Found opcode in column 1. (MOVF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 37 : Found opcode in column 1. (MOVWF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 38 : Found opcode in column 1. (RETURN)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 40 : Found opcode in column 1. (MOVF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 41 : Found opcode in column 1. (ADDWF)
+Warning[205] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 42 : Found directive in column 1. (DT)
+Warning[205] C:\MIS DOCUMENTOS\PICPROGRAMAS\SERIEENV.ASM 43 : Found directive in column 1. (end)

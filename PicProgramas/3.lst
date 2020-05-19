@@ -1,0 +1,68 @@
+MPASM 03.90 Released                                    3.ASM   6-27-2005  23:05:34         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+  0016F877            00001 p=16f877
+Warning[205]: Found directive in column 1. (org)
+0000                  00002 org 0x0000 ;Inicia en el vector de reset
+                      00003 ;Inicialización del puerto A:
+Warning[203]: Found opcode in column 1. (CLRF)
+0000   0183           00004 CLRF 0x03 ;Selecciona Banco 0
+Warning[203]: Found opcode in column 1. (CLRF)
+0001   0185           00005 CLRF 0x05 ;Inicializa latches de datos de PORTA
+Warning[203]: Found opcode in column 1. (BSF)
+0002   1683           00006 BSF 0x03,5 ;Selecciona Banco 1
+Warning[203]: Found opcode in column 1. (MOVLW)
+0003   3006           00007 MOVLW 0x06 ;Configura todas las patitas de A
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0004   009F           00008 MOVWF 0x9f ;como digitales
+Warning[203]: Found opcode in column 1. (MOVLW)
+0005   3000           00009 MOVLW 0x00 ;configura todas patitas de A
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0006   0085           00010 MOVWF 0x85 ;como salidas digitales
+                      00011 ;Una vez inicializado el puerto, se procede a controlar los LEDs
+Warning[203]: Found opcode in column 1. (BCF)
+0007   1283           00012 BCF 0x03,5 ;regresa al banco 0
+0008   0185           00013 ciclo CLRF 0x05 ;Apaga todos los LEDs
+Warning[203]: Found opcode in column 1. (BSF)
+0009   1405           00014 BSF 0x05,0 ;enciende el LED RA0
+Warning[203]: Found opcode in column 1. (BSF)
+000A   1485           00015 BSF 0x05,1 ;enciende el LED RA1
+Warning[203]: Found opcode in column 1. (BSF)
+000B   1505           00016 BSF 0x05,2 ;enciende el LED RA2
+Warning[203]: Found opcode in column 1. (BSF)
+000C   1585           00017 BSF 0x05,3 ;enciende el LED RA3
+Warning[203]: Found opcode in column 1. (GOTO)
+000D   2808           00018 GOTO ciclo
+Warning[205]: Found directive in column 1. (end)
+                      00019 end
+MPASM 03.90 Released                                    3.ASM   6-27-2005  23:05:34         PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__16F877                          00000001
+ciclo                             00000008
+p                                 0016F877
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXX-- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    14
+Program Memory Words Free:  8178
+
+
+Errors   :     0
+Warnings :    15 reported,     0 suppressed
+Messages :     2 reported,     0 suppressed
+
+

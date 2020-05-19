@@ -1,0 +1,17 @@
+Warning[205] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 2 : Found directive in column 1. (org)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 4 : Found opcode in column 1. (CLRF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 5 : Found opcode in column 1. (CLRF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 6 : Found opcode in column 1. (BSF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 7 : Found opcode in column 1. (MOVLW)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 8 : Found opcode in column 1. (MOVWF)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 8 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 9 : Found opcode in column 1. (MOVLW)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 10 : Found opcode in column 1. (MOVWF)
+Message[302] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 10 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 12 : Found opcode in column 1. (BCF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 14 : Found opcode in column 1. (BSF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 15 : Found opcode in column 1. (BSF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 16 : Found opcode in column 1. (BSF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 17 : Found opcode in column 1. (BSF)
+Warning[203] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 18 : Found opcode in column 1. (GOTO)
+Warning[205] C:\MIS DOCUMENTOS\PICPROGRAMAS\3.ASM 19 : Found directive in column 1. (end)
